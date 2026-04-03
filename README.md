@@ -15,4 +15,6 @@ Contributions are welcome. Feel free to open an issue or submit a pull request w
 
 This project is available under the [MIT](./LICENSE) license.
 
-![golang mg logo](/pictures/ChatGPT%20Image%20Jan%2018,%202026,%2010_14_25%20PM.png)
+<p align="center">
+  <img src="./pictures/logo.png" width="50%" alt="golang mg logo" />
+</p>
