@@ -81,7 +81,7 @@ Algumas regras que vale internalizar:
 - A pasta `internal/` é especial: o Go impede que código dentro dela seja importado por módulos externos. Use para lógica auxiliar que não faz parte da API pública.
 - A pasta `cmd/` é usada para executáveis (CLIs), não para bibliotecas.
 
-Sobre os arquivos de documentação auxiliar (`LICENSE`, `README.md`, `CHANGELOG.md`), eles são abordados nas seções de [Licença](#7-licença) e [Boas Práticas](#11-boas-práticas).
+Sobre os arquivos de documentação auxiliar (`LICENSE`, `README.md`, `CHANGELOG.md`), eles são abordados nas seções de [Licença](#7-licença) e [Boas Práticas](#12-boas-práticas).
 
 ## 4. Inicializar o Módulo
 
@@ -254,7 +254,25 @@ git tag v0.1.0-rc.1
 
 Pre-releases não são instaladas por padrão com `go get`, o que é útil para testar antes de oficializar.
 
-## 9. Publicar no pkg.go.dev
+## 9. Visualizar a Documentação Localmente
+
+Antes de publicar, vale conferir como a documentação vai ficar no pkg.go.dev. O projeto [pkgsite](https://pkg.go.dev/golang.org/x/pkgsite) é o mesmo motor que roda por trás do pkg.go.dev, e você pode executá-lo localmente.
+
+Instale com:
+
+```bash
+go install golang.org/x/pkgsite/cmd/pkgsite@latest
+```
+
+Depois, na raiz do módulo:
+
+```bash
+pkgsite -open .
+```
+
+Isso abre o navegador com a documentação renderizada exatamente como apareceria no pkg.go.dev: README, comentários de pacote no `doc.go`, funções exportadas, exemplos. É o melhor jeito de validar se a documentação está completa e bem formatada antes de criar a tag e publicar.
+
+## 10. Publicar no pkg.go.dev
 
 Não existe um botão de "publicar". O pkg.go.dev indexa automaticamente a partir do Go Module Proxy. Você só precisa acionar essa indexação de uma das seguintes formas:
 
@@ -282,7 +300,7 @@ curl "https://proxy.golang.org/github.com/seu-usuario/meu-pacote/@v/v0.1.0.info"
 
 Qualquer uma dessas opções funciona. O pacote aparece no pkg.go.dev em alguns minutos.
 
-## 10. Consumir o Pacote
+## 11. Consumir o Pacote
 
 Para quem quiser usar o seu pacote:
 
@@ -304,7 +322,7 @@ go get github.com/seu-usuario/meu-modulo/json@v0.1.0
 import "github.com/seu-usuario/meu-modulo/json"
 ```
 
-## 11. Boas Práticas
+## 12. Boas Práticas
 
 - Mantenha um `CHANGELOG.md` seguindo o formato [Keep a Changelog](https://keepachangelog.com/). Isso ajuda consumidores a entenderem o que mudou entre versões sem precisar ler commits.
 - O `README.md` aparece na página do módulo no pkg.go.dev. Use para explicar o que o pacote faz, como instalar e um exemplo rápido de uso. Para referência, veja o [guia de READMEs do Make a README](https://www.makeareadme.com/).
@@ -313,7 +331,7 @@ import "github.com/seu-usuario/meu-modulo/json"
 - Use `go vet` e `golangci-lint` antes de cada release.
 - Rode `go mod tidy` para limpar dependências não utilizadas.
 
-## 12. Checklist para Publicação
+## 13. Checklist para Publicação
 
 - [ ] `go.mod` com module path correto (`github.com/usuario/repo`)
 - [ ] `LICENSE` na raiz
